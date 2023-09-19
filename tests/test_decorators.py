@@ -52,3 +52,23 @@ class TestDecorators:
         count = 0
         increment()
         assert count == 3
+
+    def test_repeat_with_function_parameters(self):
+        def repeat(times):
+            def rpt(func):
+                @functools.wraps(func)
+                def wrapped(*args, **kwargs):
+                    for i in range(times):
+                        func(*args, **kwargs)
+                return wrapped
+            return rpt
+        count = 0
+        @repeat(3)
+        def increment(by, multiplier=1):
+            nonlocal count
+            count += by*multiplier
+        increment(2)
+        assert count == 6
+        count = 0
+        increment(2, multiplier=2)
+        assert count == 12
