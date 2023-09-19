@@ -9,7 +9,7 @@ class TestDecorators:
 
     def test_repeat_twice(self):
         def repeat(func):
-            functools.wraps(func)
+            @functools.wraps(func)
             def rpt(*args, **kwargs):
                 func(*args, **kwargs)
                 func(*args, **kwargs)
