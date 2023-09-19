@@ -62,6 +62,7 @@ class TestDecorators:
                 return wrapped
             return rpt
         count = 0
+
         @repeat(3)
         def increment(by, multiplier=1):
             nonlocal count
@@ -79,6 +80,8 @@ class TestDecorators:
         def report_creation(klass):
             if not hasattr(report_creation, "count"):
                 report_creation.count = 0
+
+            @functools.wraps(klass)
             def wrapper_report():
                 report_creation.count += 1
                 return klass
@@ -89,15 +92,15 @@ class TestDecorators:
             def __init__(self):
                 pass
 
-        reported = Reported()
-        r2 = Reported()
+        _r1 = Reported()
+        _r2 = Reported()
         assert report_creation.count == 2
 
         @report_creation
         class Another:
             pass
 
-        another = Another()
+        _another = Another()
         assert report_creation.count == 3
 
     def test_singleton(self):
