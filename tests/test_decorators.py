@@ -118,7 +118,6 @@ class TestDecorators:
                 self.a = a
                 self.b = b
 
-
         s1 = Something(1, 2)
         s2 = Something(3, 4)
         assert s1 is s2
