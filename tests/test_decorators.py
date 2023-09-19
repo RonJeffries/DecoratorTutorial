@@ -1,7 +1,5 @@
 import functools
 
-import pytest
-
 
 class TestDecorators:
     def test_hookup(self):
